@@ -69,3 +69,23 @@ header {
     filter: saturate(0);
     opacity: 0.5;
 }
+
+.buttons, .playerName, .scoreDiv {
+    display: flex;
+    flex-direction: column;
+    padding: 2px;
+    align-items: center;
+}
+
+.player, .highscore {
+    margin: 4px;
+}
+
+.pause, .play, .restart {
+    margin: 4px;
+    border-radius: 5px;
+    width: 100%;
+    align-items: center;
+    background-color: #444;
+    color: white;
+}

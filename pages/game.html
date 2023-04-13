@@ -13,7 +13,22 @@
 
     <main>
        <header>
-        <span class="player"></span>
+        <div class="playerName">
+            <span>Jogador:</span>
+            <span class="player"></span>
+        </div>
+        
+        <div class="scoreDiv">
+            <span>Highscore</span>
+            <span class="highscore"></span>
+        </div>
+        
+        <div class="buttons">
+            <button type="button" class="pause" onclick="pauseTimer()">PAUSE</button>
+            <button type="button" class="play" onclick="continueTimer()">CONTINUE</button>
+            <button type="button" class="restart" onclick="backToLogin()">LOGIN</button>
+        </div>
+        
         <span>Tempo: <span class="timer">00</span></span>
     </header>
 

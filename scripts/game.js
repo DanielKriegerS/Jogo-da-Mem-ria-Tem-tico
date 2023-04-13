@@ -1,6 +1,11 @@
 const grid = document.querySelector('.grid');
 const spanPlayer = document.querySelector('.player');
 const timer = document.querySelector('.timer');
+const pause = document.querySelector('.pause');
+const play = document.querySelector('.play');
+const highscore = document.querySelector('.highscore');
+let loop;
+let isPaused = false;
 
 const characters = [
     'all-doc-card',
@@ -30,7 +35,9 @@ const checkEndGame = () => {
     if (disabledCards.length === 20){
         clearInterval(this.loop);
         alert(`Parabéns, ${spanPlayer.innerHTML}, você venceu! O tempo foi: ${timer.innerHTML} segundos.`);
-    }
+        getHighscore();
+        loadGame();
+    }   
 }
 
 const checkCards = () => {
@@ -97,6 +104,12 @@ const createCard = (character) => {
 
 const loadGame = () => {
 
+    if (grid.children.length > 0) {
+        while (grid.firstChild) {
+      grid.removeChild(grid.firstChild);
+    }
+ }
+
     const duplicateCharacters = [
         ... characters, ... characters
     ]
@@ -111,15 +124,55 @@ const loadGame = () => {
         grid.appendChild(card);
 
     });
+    startTimer();
 }
 
 const startTimer = () => {
+    timer.innerHTML = 0;
 
-    this.loop = setInterval(() => {
+    if (loop) {
+        return;
+    }
+
+    loop = setInterval(() => {
         const currentTime = +timer.innerHTML;
         timer.innerHTML = currentTime + 1;
-    }, 1000)
+    }, 1000);
+}
 
+const pauseTimer = () => {
+    clearInterval(loop);
+    loop = null;
+}
+
+const continueTimer = () => {
+    if (loop) {
+        return;
+    }
+
+    loop = setInterval(() => {
+        const currentTime = +timer.innerHTML;
+        timer.innerHTML = currentTime + 1;
+    }, 1000);
+}
+
+const getHighscore = () =>{
+    let result = localStorage.getItem('highscore') || 100000000;
+    let highPlayer;
+
+    if (timer.innerHTML < result) {
+        result = timer.innerHTML;
+        highPlayer = spanPlayer.innerHTML;
+        highscore.innerHTML = `${highPlayer} | ${result}`;
+        localStorage.setItem('highPlayer', highPlayer);
+        localStorage.setItem('highscore', result);
+    } else {
+        alert(`Foi por pouco, mais sorte na próxima.`);
+    }
+}
+
+const backToLogin = () => {
+    window.location = '../index.html';
 }
 
 window.onload = () => {
@@ -128,5 +181,5 @@ window.onload = () => {
     loadGame();
 }
 
-
-
+pause.addEventListener('click', pauseTimer);
+play.addEventListener('click', continueTimer);
