@@ -2,7 +2,7 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 60vh;
     justify-content: center;
 }
 
@@ -29,7 +29,6 @@
     border-radius: 8px;
     color: #333;
     font-size: 1em;
-    margin-bottom: 15px;
     max-width: 300px;
     outline: none;
     padding: 15px;
@@ -41,10 +40,12 @@
     border-radius: 8px;
     color: white;
     padding: 15px;
+    margin: 15px;
     cursor: pointer;
     font-size: 1em;
     max-width: 300px;
     width: 100%;
+    align-self: center;
 }
 
 .login__button:disabled {
@@ -52,3 +53,48 @@
     color: #aaa;
     cursor: auto;
 }
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.menu {
+    position: relative;
+    display: inline-block;
+    max-width: 300px;
+    width: 100%;
+  }
+  
+  .menu ul {
+    position: absolute;
+    bottom: -100px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s ease;
+  }
+  
+  .menu li {
+    list-style: none;
+    margin: 5px 0;
+  }
+  
+  .menu a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1em;
+  }
+  
+  .menu a:hover {
+    text-decoration: underline;
+  }
+  

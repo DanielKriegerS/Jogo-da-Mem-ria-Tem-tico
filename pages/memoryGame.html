@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da memória | Main</title>
+
+    <link rel="stylesheet" href="../styles/reset.css">
+    <link rel="stylesheet" href="../styles/memoryGame.css">
+
+</head>
+<body>
+    <main class="content">
+       <div class="centerContent">
+        <header>
+            <div class="playerName">
+                <span>Jogador:</span>
+                <span class="player"></span>
+            </div>
+            
+            <div class="scoreDiv">
+                <span>Highscore</span>
+                <span class="highscore"></span>
+            </div>
+            
+            <div class="buttons">
+                <button type="button" class="pause" onclick="pauseTimer()">PAUSE</button>
+                <button type="button" class="play" onclick="continueTimer()">CONTINUE</button>
+                <button type="button" class="restart" onclick="backToLogin()">LOGIN</button>
+            </div>
+            
+            <span>Tempo: <span class="timer">00</span></span>
+        </header>
+        <div class="grid">
+        </div> 
+      
+       </div>
+        
+     
+     <div class="topPlayers">
+        <span>Top Players</span>
+        <span class="highscore"></span>
+    </div>
+     </main>
+
+    <script src="../scripts/memoryGame.js"></script>
+</body>
+</html>

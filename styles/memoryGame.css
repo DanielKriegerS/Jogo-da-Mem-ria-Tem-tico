@@ -1,6 +1,6 @@
 main {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
     background-image: url('../assets/bg.jpg');
     min-height: 100vh;
@@ -22,6 +22,33 @@ header {
     border-radius: 5px;
 }
 
+.content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.centerContent {
+    width: 100%;
+    max-width: 800px;
+    margin-right: 100px;
+}
+
+.topPlayers {
+    display: flex;
+    flex-direction: row;
+    width: 18%;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 7px;
+    padding: 1em;
+    height: 450px;
+    max-height: 60%;
+}
+
+.topPlayers span {
+    margin-left: 5px;
+}
+
 .grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -32,7 +59,7 @@ header {
 }
 
 .card {
-    aspect-ratio: 3/4;
+    aspect-ratio: 4/3;
     width: 100%;
     background-color: #333;
     position: relative;

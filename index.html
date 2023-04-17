@@ -7,18 +7,29 @@
     <link rel="stylesheet" href="./styles/reset.css">
     <link rel="stylesheet" href="./styles/login.css">
 
-    <title>Jogo da Memória | Login</title>
+    <title>Jogos em HTML | login </title>
 </head>
 <body>
     <form class="login-form">
+        
         <div class="login__header">
             <img src="./assets/logo.jpg" alt="icon">
-            <h1>Jogo da Memória</h1>
+            <h1>Jogos do Dani</h1>
         </div>
 
         <input type="text" placeholder="Nome" class="login__input">
-        <button type="submit" class="login__button" disabled>Play</button>
 
-        <script src="./scripts/login.js"></script>
+        <button type="submit" class="login__button" disabled>Play</button>
+        
+        <div class="menu">
+            <ul>
+              <span>Escolha seu game!</span>
+              <li><a href="./pages/memoryGame.html">Jogo da Memória</a></li>
+              <li><a href="./pages/ticTacToe.html">Jogo da velha</a></li>
+            </ul>
+          </div>
+    </form>
+    
+    <script src="./scripts/login.js"></script>
 </body>
 </html>

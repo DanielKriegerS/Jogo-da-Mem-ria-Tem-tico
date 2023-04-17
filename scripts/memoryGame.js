@@ -67,7 +67,12 @@ const checkCards = () => {
 }
 
 const revealCard = ({target}) => {
+   
 
+    if (!target.parentNode.classList.toString().includes("grid")) {
+        if (isPaused) {
+            return;
+        }
     if(target.parentNode.className.includes('reveal-card')){
         return;
     }
@@ -83,6 +88,7 @@ const revealCard = ({target}) => {
         checkCards();
 
     }
+}
 }
 
 const createCard = (character) => {
@@ -143,6 +149,7 @@ const startTimer = () => {
 const pauseTimer = () => {
     clearInterval(loop);
     loop = null;
+    isPaused = true;
 }
 
 const continueTimer = () => {
@@ -154,6 +161,7 @@ const continueTimer = () => {
         const currentTime = +timer.innerHTML;
         timer.innerHTML = currentTime + 1;
     }, 1000);
+    isPaused = false;
 }
 
 const getHighscore = () =>{
@@ -176,7 +184,7 @@ const backToLogin = () => {
 }
 
 window.onload = () => {
-    spanPlayer.innerHTML = localStorage.getItem('player')
+    spanPlayer.innerHTML = localStorage.getItem('player');
     startTimer();
     loadGame();
 }
