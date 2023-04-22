@@ -36,8 +36,8 @@ header {
 
 .topPlayers {
     display: flex;
-    flex-direction: row;
-    width: 18%;
+    flex-direction: column;
+    width: 22%;
     background-color: rgba(255, 255, 255, 0.7);
     border-radius: 7px;
     padding: 1em;
@@ -45,8 +45,9 @@ header {
     max-height: 60%;
 }
 
-.topPlayers span {
+.topPlayers h4 {
     margin-left: 5px;
+    padding: 5px 0 5px 30px;
 }
 
 .grid {
@@ -102,6 +103,11 @@ header {
     flex-direction: column;
     padding: 2px;
     align-items: center;
+}
+
+table {
+    font-size: 14px;
+    padding: 10px;
 }
 
 .player, .highscore {

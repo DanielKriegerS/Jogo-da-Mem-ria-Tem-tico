@@ -4,8 +4,24 @@ const timer = document.querySelector('.timer');
 const pause = document.querySelector('.pause');
 const play = document.querySelector('.play');
 const highscore = document.querySelector('.highscore');
+const table = document.querySelector('#leaderboard');
+let players = [];
 let loop;
 let isPaused = false;
+
+class Player {
+    constructor(name, time) {
+      this.name = name;
+      this.time = time;
+    }
+  }
+
+  function createPlayer() {
+    const actualPlayer = new Player(localStorage.getItem('Player.name'), timer.innerHTML);
+    players.push(actualPlayer);
+    localStorage.setItem('players', JSON.stringify(players));
+  }
+  
 
 const characters = [
     'all-doc-card',
@@ -32,11 +48,10 @@ let secondCard = '';
 const checkEndGame = () => {
     const disabledCards = document.querySelectorAll('.disabled-card');
 
-    if (disabledCards.length === 20){
+    if (disabledCards.length === 2){
         clearInterval(this.loop);
         alert(`Parabéns, ${spanPlayer.innerHTML}, você venceu! O tempo foi: ${timer.innerHTML} segundos.`);
         getHighscore();
-        loadGame();
     }   
 }
 
@@ -108,6 +123,31 @@ const createCard = (character) => {
     return card;
 }
 
+function sortPlayers() {
+    players.sort((a, b) => a.time - b.time);
+  }
+  
+  function createTable() {
+    const header = table.createTHead();
+    const row = header.insertRow();
+    const positionHeader = row.insertCell();
+    const nameHeader = row.insertCell();
+    const timeHeader = row.insertCell();
+    positionHeader.textContent = 'Posição';
+    nameHeader.textContent = 'Nome';
+    timeHeader.textContent = 'Tempo';
+
+    for (let i = 0; i < 10; i++) {
+        const row = table.insertRow();
+        const position = row.insertCell(0);
+        const name = row.insertCell(1);
+        const time = row.insertCell(2);
+        position.innerHTML = i + 1;
+        name.innerHTML = '';
+        time.innerHTML = '';
+    }
+  }
+
 const loadGame = () => {
 
     if (grid.children.length > 0) {
@@ -177,6 +217,7 @@ const getHighscore = () =>{
     } else {
         alert(`Foi por pouco, mais sorte na próxima.`);
     }
+    loadGame();
 }
 
 const backToLogin = () => {
@@ -186,6 +227,7 @@ const backToLogin = () => {
 window.onload = () => {
     spanPlayer.innerHTML = localStorage.getItem('player');
     startTimer();
+    createTable();
     loadGame();
 }
 
