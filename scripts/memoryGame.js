@@ -5,6 +5,7 @@ const pause = document.querySelector('.pause');
 const play = document.querySelector('.play');
 const highscore = document.querySelector('.highscore');
 const table = document.querySelector('#leaderboard');
+let score;
 let players = [];
 let loop;
 let isPaused = false;
@@ -17,10 +18,14 @@ class Player {
   }
 
   function createPlayer() {
-    const actualPlayer = new Player(localStorage.getItem('Player.name'), timer.innerHTML);
+    const playerName = spanPlayer.innerHTML;
+    const playerTime = score;
+    const actualPlayer = new Player(playerName, playerTime);
     players.push(actualPlayer);
     localStorage.setItem('players', JSON.stringify(players));
+    updateLeaderboard();
   }
+  
   
 
 const characters = [
@@ -51,7 +56,9 @@ const checkEndGame = () => {
     if (disabledCards.length === 2){
         clearInterval(this.loop);
         alert(`Parabéns, ${spanPlayer.innerHTML}, você venceu! O tempo foi: ${timer.innerHTML} segundos.`);
+        score = timer.innerHTML;
         getHighscore();
+        
     }   
 }
 
@@ -123,9 +130,22 @@ const createCard = (character) => {
     return card;
 }
 
-function sortPlayers() {
-    players.sort((a, b) => a.time - b.time);
+function updateLeaderboard() {
+    const sortedPlayers = JSON.parse(localStorage.getItem('players')).sort((a, b) => a.time - b.time);
+
+  for (let i = 0; i < sortedPlayers.length && i < 10; i++) {
+    const player = sortedPlayers[i];
+    const row = table.rows[i+2];
+
+    const position = row.cells[0];
+    const name = row.cells[1];
+    const time = row.cells[2];
+
+    position.innerHTML = i + 1;
+    name.innerHTML = player.name;
+    time.innerHTML = player.time;
   }
+}
   
   function createTable() {
     const header = table.createTHead();
@@ -133,7 +153,7 @@ function sortPlayers() {
     const positionHeader = row.insertCell();
     const nameHeader = row.insertCell();
     const timeHeader = row.insertCell();
-    positionHeader.textContent = 'Posição';
+    positionHeader.textContent = 'Pos';
     nameHeader.textContent = 'Nome';
     timeHeader.textContent = 'Tempo';
 
@@ -171,6 +191,7 @@ const loadGame = () => {
 
     });
     startTimer();
+    updateLeaderboard();
 }
 
 const startTimer = () => {
@@ -217,6 +238,7 @@ const getHighscore = () =>{
     } else {
         alert(`Foi por pouco, mais sorte na próxima.`);
     }
+    createPlayer(localStorage.getItem('Player.name'), timer.innerHTML);
     loadGame();
 }
 
