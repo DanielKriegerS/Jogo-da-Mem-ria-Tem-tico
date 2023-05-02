@@ -17,10 +17,13 @@ class Player {
     }
   }
 
-  function createPlayer() {
-    const playerName = spanPlayer.innerHTML;
-    const playerTime = score;
-    const actualPlayer = new Player(playerName, playerTime);
+  const actualPlayer = new Player();
+
+  function createPlayer(playerName, playerTime) {
+     playerName = spanPlayer.innerHTML;
+     playerTime = score;
+     actualPlayer.name = playerName;
+     actualPlayer.time = playerTime;
     players.push(actualPlayer);
     localStorage.setItem('players', JSON.stringify(players));
     updateLeaderboard();
@@ -57,8 +60,7 @@ const checkEndGame = () => {
         clearInterval(this.loop);
         alert(`Parabéns, ${spanPlayer.innerHTML}, você venceu! O tempo foi: ${timer.innerHTML} segundos.`);
         score = timer.innerHTML;
-        getHighscore();
-        
+        getHighscore();   
     }   
 }
 
@@ -131,7 +133,7 @@ const createCard = (character) => {
 }
 
 function updateLeaderboard() {
-    const sortedPlayers = JSON.parse(localStorage.getItem('players')).sort((a, b) => a.time - b.time);
+const sortedPlayers = JSON.parse(localStorage.getItem('players')).sort((a, b) => a.time - b.time);
 
   for (let i = 0; i < sortedPlayers.length && i < 10; i++) {
     const player = sortedPlayers[i];
@@ -145,6 +147,8 @@ function updateLeaderboard() {
     name.innerHTML = player.name;
     time.innerHTML = player.time;
   }
+
+  loadGame();
 }
   
   function createTable() {
@@ -166,6 +170,7 @@ function updateLeaderboard() {
         name.innerHTML = '';
         time.innerHTML = '';
     }
+    updateLeaderboard();
   }
 
 const loadGame = () => {
@@ -191,7 +196,6 @@ const loadGame = () => {
 
     });
     startTimer();
-    updateLeaderboard();
 }
 
 const startTimer = () => {
@@ -228,18 +232,18 @@ const continueTimer = () => {
 const getHighscore = () =>{
     let result = localStorage.getItem('highscore') || 100000000;
     let highPlayer;
-
-    if (timer.innerHTML < result) {
-        result = timer.innerHTML;
-        highPlayer = spanPlayer.innerHTML;
-        highscore.innerHTML = `${highPlayer} | ${result}`;
+    createPlayer(actualPlayer.name, actualPlayer.time);
+    if (actualPlayer.time < result) {
+        result = actualPlayer.time;
+        highPlayer = localStorage.getItem('highPlayer');
+        highscore.innerHTML = `${highPlayer} | ${this.highscore}`;
         localStorage.setItem('highPlayer', highPlayer);
-        localStorage.setItem('highscore', result);
+        localStorage.setItem('highscore', actualPlayer.time);
     } else {
         alert(`Foi por pouco, mais sorte na próxima.`);
     }
-    createPlayer(localStorage.getItem('Player.name'), timer.innerHTML);
-    loadGame();
+    
+    updateLeaderboard();
 }
 
 const backToLogin = () => {
