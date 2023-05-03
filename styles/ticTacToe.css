@@ -34,6 +34,24 @@ header div{
     border: 1px solid;
 }
 
+header button{
+    padding: 2px;
+    border-radius: 5px;
+}
+
+header button:hover{
+    cursor: pointer;
+    background-color: rgba(232, 235, 225, .5);
+}
+
+.newLog{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px;
+    padding: 5px;
+}
+
 .content{
     display: flex;
     margin: 0 auto;
