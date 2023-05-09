@@ -1,5 +1,7 @@
 const playerOne = document.querySelector('.playerOne');
 const playerTwo = document.querySelector('.playerTwo');
+const playerOneSide = document.querySelector('.playerOneSide');
+const playerTwoSide = document.querySelector('.playerTwoSide')
 const submit = document.querySelector('.submit');
 const table = document.querySelector('.table');
 const header = document.querySelector('.header');
@@ -7,8 +9,9 @@ const main = document.querySelector('.main');
 const grid = Array.from(Array(3), () => new Array(3).fill(''));
 const gridContainer = document.querySelector('.grid');
 const playerTwoForm = document.querySelector('#playerTwoForm');
-const squares = document.querySelectorAll('.square'); 
-let currentPlayer = 'X';
+let isBoardFull = false;
+let winner = false;
+var currentPlayer = 'X';
 let scoreX = 0;
 let scoreO = 0;
 
@@ -22,8 +25,27 @@ const addPlayer = () => {
         var inputValue = playerTwoInput.value;
         localStorage.setItem('playerTwo', inputValue);
         playerTwo.innerHTML = localStorage.getItem('playerTwo');
-        createGrid();
     }    
+}
+
+const playerTurn = () => {
+  isBoardFull = true;
+
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (grid[i][j] == '') {
+        isBoardFull = false; 
+        break;
+      }
+    }
+  }
+    if(currentPlayer == 'X'){
+      playerOneSide.classList.add('turnOne');
+      playerTwoSide.classList.remove('turnTwo');
+    } else {
+      playerOneSide.classList.remove('turnOne');
+      playerTwoSide.classList.add('turnTwo');
+    } checkEndGame();
 }
 
 playerTwoForm.addEventListener('submit', (event) => {
@@ -38,16 +60,20 @@ playerTwoForm.addEventListener('submit', (event) => {
 });
 
 function checkEndGame() {
+  winner = false;
   for (let i = 0; i < 3; i++) {
     if (grid[i][0] !== '' && grid[i][0] === grid[i][1] && grid[i][1] === grid[i][2]) {
-      if(grid[i][0] == "X"){
+      if(grid[i][0] == 'X'){
         scoreX++;
         localStorage.setItem('scoreX', scoreX);
       } else{
         scoreO++;
         localStorage.setItem('scoreO', scoreO);
-      }
+      } 
+      winner = true;
+      return;
     }
+    
   }
 
   for (let j = 0; j < 3; j++) {
@@ -59,6 +85,8 @@ function checkEndGame() {
         scoreO++;
         localStorage.setItem('scoreO', scoreO);
       }
+      winner = true;
+      return;
     }
   }
 
@@ -70,7 +98,10 @@ function checkEndGame() {
       scoreO++;
       localStorage.setItem('scoreO', scoreO);
     }
+    winner = true;
+    return;
   }
+
   if (grid[0][2] !== '' && grid[0][2] === grid[1][1] && grid[1][1] === grid[2][0]) {
     if(grid[0][2] == 'X'){
       scoreX++;
@@ -79,9 +110,18 @@ function checkEndGame() {
       scoreO++;
       localStorage.setItem('scoreO', scoreO);
     }
+    winner = true;
+    return;
+  }
+  checkDraw();
+}
+
+function checkDraw() {
+  if (isBoardFull && winner == false) {
+    alert('Empate!');
   }
 }
- 
+
 const createGrid = () => {
     for (let row = 0; row < 3; row++) {
       for (let col = 0; col < 3; col++) {
@@ -96,28 +136,23 @@ const createGrid = () => {
             button.textContent = currentPlayer;
             grid[row][col] = currentPlayer;
             currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-            checkEndGame();
-          }
+            playerTurn();
+            console.log(isBoardFull);
+            console.log(winner);
+          } 
         });
       }
     }
   };
-
-squares.forEach(square => {
-  square.addEventListener('click', () => {
-    if (square.textContent === '') {
-      square.textContent = currentPlayer; 
-      currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-    }
-  });
-});
 
 const loadGame = () => {
     if (gridContainer.children.length > 0) {
         while (grid.firstChild) {
       grid.removeChild(grid.firstChild);
     }
- }  
+ }
+ createGrid();
+ playerTurn(); 
 }
 
 const backToLogin = () => {

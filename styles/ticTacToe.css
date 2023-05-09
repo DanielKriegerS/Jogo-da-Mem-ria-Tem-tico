@@ -66,12 +66,13 @@ header button:hover{
 }
 
 .square{
-    width: 80px;
+    width: 80px;    
     height: 100px;
+    border: 1px solid;
     font-size: 35px;
 }
 
-.playerOneName, .playerTwoName{
+.playerOneSide, .playerTwoSide{
     display: flex;
     flex-direction: column;
     padding-top: 15px;
@@ -79,10 +80,19 @@ header button:hover{
     align-items: center;
     width: 200px;
     border-radius: 10px;
-    border: 1px solid black;
 }
 
-.playerOneName p, .playerTwoName p{
+.playerOneSide p, .playerTwoSide p{
     margin: 5px;
     color: rgba(5, 5, 5, .4);
+}
+
+.turnOne{
+    background-color: rgba(180, 180, 250, .3);
+    border: 1px solid rgba(100, 100, 150, .3);
+}
+
+.turnTwo{
+    background-color: rgba(250, 180, 180, .5);
+    border: 1px solid rgba(150, 100, 100, .5);
 }
