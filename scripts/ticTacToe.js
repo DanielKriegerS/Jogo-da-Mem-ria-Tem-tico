@@ -137,15 +137,15 @@ function checkDraw() {
 }
 
 function loadScore() {
-  scoreO = localStorage.getItem(scoreO);
-  scoreX = localStorage.getItem(scoreX);
+  scoreO = localStorage.getItem('scoreO');
+  scoreX = localStorage.getItem('scoreX');
 
-  const playerOneScore = document.querySelector('.playerOneScore');
+  const playerOneScore = document.querySelector('.scoreOne');
   playerOneScore.innerHTML = scoreX;
-
-  const playerTwoScore = document.querySelector('.playerTwoScore');
+  console.log(playerOneScore);
+  const playerTwoScore = document.querySelector('.scoreTwo');
   playerTwoScore.innerHTML = scoreO;
-  
+  console.log(playerTwoScore);
  resetGame();
 }
 

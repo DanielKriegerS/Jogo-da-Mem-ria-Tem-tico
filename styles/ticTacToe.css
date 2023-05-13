@@ -96,3 +96,29 @@ header button:hover{
     background-color: rgba(250, 180, 180, .5);
     border: 1px solid rgba(150, 100, 100, .5);
 }
+
+.playerOneScore, .playerTwoScore{
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    width: 130px;
+    height: 90px;
+    margin-top: 90px;
+    border-radius: 10px;
+    font-weight: bold;
+    border: 2px solid rgba(95, 95, 95, .3);
+}
+
+.scoreOne, .scoreTwo{
+    align-self: center;
+    padding-left: 40px;
+    font-size: 40px;
+}
+
+.playerOneScore{
+    background-image: linear-gradient(120deg, rgba(180, 180, 250, .3), rgba(130, 130, 250, .2));
+}
+
+.playerTwoScore{
+    background-image: linear-gradient(120deg, rgba(250, 180, 180, .3), rgba(250, 130, 130, .3));
+}
