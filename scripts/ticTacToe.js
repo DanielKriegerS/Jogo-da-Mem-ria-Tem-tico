@@ -1,7 +1,7 @@
 const playerOne = document.querySelector('.playerOne');
 const playerTwo = document.querySelector('.playerTwo');
 const playerOneSide = document.querySelector('.playerOneSide');
-const playerTwoSide = document.querySelector('.playerTwoSide')
+const playerTwoSide = document.querySelector('.playerTwoSide');
 const submit = document.querySelector('.submit');
 const table = document.querySelector('.table');
 const header = document.querySelector('.header');
@@ -66,11 +66,14 @@ function checkEndGame() {
       if(grid[i][0] == 'X'){
         scoreX++;
         localStorage.setItem('scoreX', scoreX);
+        console.log('Vencedor X');
       } else{
         scoreO++;
         localStorage.setItem('scoreO', scoreO);
+        console.log('Vencedor O');
       } 
       winner = true;
+      loadScore();
       return;
     }
     
@@ -81,11 +84,14 @@ function checkEndGame() {
       if(grid[0][j] == 'X'){
         scoreX++;
         localStorage.setItem('scoreX', scoreX);
+      console.log('Vencedor X');
       } else{
         scoreO++;
         localStorage.setItem('scoreO', scoreO);
+        console.log('Vencedor O');
       }
       winner = true;
+      loadScore();
       return;
     }
   }
@@ -94,11 +100,14 @@ function checkEndGame() {
     if(grid[0][0] == 'X'){
       scoreX++;
       localStorage.setItem('scoreX', scoreX);
+      console.log('Vencedor X');
     } else{
       scoreO++;
       localStorage.setItem('scoreO', scoreO);
+      console.log('Vencedor O'); 
     }
     winner = true;
+    loadScore();
     return;
   }
 
@@ -106,11 +115,14 @@ function checkEndGame() {
     if(grid[0][2] == 'X'){
       scoreX++;
       localStorage.setItem('scoreX', scoreX);
+      console.log('Vencedor X');
     } else{
       scoreO++;
       localStorage.setItem('scoreO', scoreO);
+      console.log('Vencedor O');
     }
     winner = true;
+    loadScore();
     return;
   }
   checkDraw();
@@ -119,7 +131,22 @@ function checkEndGame() {
 function checkDraw() {
   if (isBoardFull && winner == false) {
     alert('Empate!');
+    loadScore();
   }
+  return;
+}
+
+function loadScore() {
+  scoreO = localStorage.getItem(scoreO);
+  scoreX = localStorage.getItem(scoreX);
+
+  const playerOneScore = document.querySelector('.playerOneScore');
+  playerOneScore.innerHTML = scoreX;
+
+  const playerTwoScore = document.querySelector('.playerTwoScore');
+  playerTwoScore.innerHTML = scoreO;
+  
+ resetGame();
 }
 
 const createGrid = () => {
@@ -137,8 +164,6 @@ const createGrid = () => {
             grid[row][col] = currentPlayer;
             currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
             playerTurn();
-            console.log(isBoardFull);
-            console.log(winner);
           } 
         });
       }
@@ -151,8 +176,21 @@ const loadGame = () => {
       grid.removeChild(grid.firstChild);
     }
  }
- createGrid();
  playerTurn(); 
+}
+
+const resetGame = () => {
+  if (winner || isBoardFull) {
+    const buttons = document.querySelectorAll('.square');
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].textContent = '';
+    }
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        grid[i][j] = '';
+      }
+    }
+  }
 }
 
 const backToLogin = () => {
@@ -162,6 +200,7 @@ const backToLogin = () => {
 window.onload = () => {
     playerOne.innerHTML = localStorage.getItem('player');
     loadGame();
+    createGrid();
 }
 
 submit.addEventListener('click', addPlayer);
