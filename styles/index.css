@@ -37,31 +37,15 @@
   text-align: center;
   padding: 10px;
   cursor: pointer;
-}
-
-.custom-select .select2-container {
-  margin: 10px;
-}
-
-.custom-select .select2-container .select2-selection--single {
-  height: auto;
-  padding: 10px;
-  border-radius: 10px;
-  border: 2px solid #07435299;
-}
-
-.custom-select .select2-container .select2-selection--single .select2-selection__rendered {
   color: blue;
+  margin: 10px;
+  background-image: linear-gradient(120deg, black, #333);
 }
 
-.custom-select .select2-container .select2-selection--single .select2-selection__arrow {
-  top: 50%;
-  transform: translateY(-50%);
+.custom-select option {
+  background-color: black;
 }
 
-.custom-select .select2-container .select2-selection--single .select2-selection__arrow b {
-  border-color: #07435299 transparent transparent transparent;
-}
 
 
   

@@ -33,20 +33,21 @@
     margin-left: 20px;
 }
 
-.login__input {
+.player-one__input, .player-two__input {
     border: 2px solid #333;
     border-radius: 8px;
-    color: #333;
+    background-color: black;
+    color: #CCC;
     font-size: 1em;
     max-width: 300px;
     outline: none;
     padding: 15px;
     width: 100%;
-    margin: 10px;
+    margin: 10px 0 5px 0;
 }
 
 .login__button {
-    background-color: #ee665c;
+    background-color: #cc1c0f;
     border-radius: 8px;
     color: white;
     padding: 15px;
@@ -71,7 +72,7 @@
 }
 
 .menu {
-    position: relative;
+    position: absolute;
     display: inline-block;
     max-width: 300px;
     width: 100%;
@@ -79,31 +80,36 @@
   
   .menu ul {
     position: absolute;
-    bottom: -100px;
-    left: 0;
-    right: 0;
+    bottom: -150px;
     width: 100%;
-    background-color: #fff;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
     padding: 10px;
     visibility: hidden;
     opacity: 0;
-    transition: visibility 0s, opacity 0.5s ease;
+    transition: visibility 0s, opacity 1s ease-in ;
+    background-color: black;
   }
   
   .menu li {
     list-style: none;
-    margin: 5px 0;
+    margin: 10px 0;
+    background-color: black;
   }
   
   .menu a {
     text-decoration: none;
     color: #333;
     font-size: 1em;
+    background-color: black;
   }
   
   .menu a:hover {
     text-decoration: underline;
+  }
+
+  .menu span{
+    background-color: black;
+    color: white;
+    margin-bottom: 10px;
   }

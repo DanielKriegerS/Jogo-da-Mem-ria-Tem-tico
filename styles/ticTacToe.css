@@ -1,60 +1,43 @@
 body{
     display: flex;
     flex-direction: column;
-    align-items: center;
     background-image: url('../assets/bg.jpg');
     min-height: 100vh;
     align-items: center;
-    justify-content: center;
-    
+    justify-content: center;  
+    background-repeat: no-repeat;  
+    background-size: cover;
 }
 
-.main--hidden {
-    display: none;
-}
-
-.header--hidden{
-    display: none;
-}
-
-main{
-    margin: 20px;
-    padding: 10px;
-    background-color: rgba(244, 246, 240, .4);
-}
-
-header{
-   padding: 10px;
-   margin: 0 auto;
-}
-
-header div{
-    margin-left: 20px;
-    background-color: rgba(244, 246, 240, .4);
-    border: 1px solid;
-}
-
-header button{
-    padding: 2px;
-    border-radius: 5px;
-}
-
-header button:hover{
-    cursor: pointer;
-    background-color: rgba(232, 235, 225, .5);
-}
-
-.newLog{
+.main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 5px;
-    padding: 5px;
+    justify-content: center;
+  }
+
+.backToLogin {
+    border-radius: 8px;
+    color: white;
+    padding: 15px;
+    margin: 15px;
+    cursor: pointer;
+    font-size: 1em;
+    max-width: 200px;
+    background-color: rgba(50, 50, 60, .3);
+    transition: background-color 2s ease-out;
+    width: 100%;
+    align-self: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.backToLogin:hover{
+    background-color: rgba(200, 200, 200, .3);
 }
 
 .content{
     display: flex;
-    margin: 0 auto;
     height: 350px;
 }
 
@@ -82,14 +65,23 @@ header button:hover{
     border-radius: 10px;
 }
 
-.playerOneSide p, .playerTwoSide p{
+.playerName{
+    background-color: rgba(20, 20, 20, .1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.playerName p, .playerName p{
     margin: 5px;
     color: rgba(5, 5, 5, .4);
+    background-color: rgba(20, 20, 20, .0);
 }
 
 .turnOne{
-    background-color: rgba(180, 180, 250, .3);
-    border: 1px solid rgba(100, 100, 150, .3);
+    background-color: rgba(180, 180, 250, .5);
+    border: 1px solid rgba(100, 100, 150, .5);
 }
 
 .turnTwo{
@@ -98,7 +90,6 @@ header button:hover{
 }
 
 .playerOneScore, .playerTwoScore{
-    align-self: center;
     display: flex;
     flex-direction: row;
     width: 130px;
@@ -107,18 +98,17 @@ header button:hover{
     border-radius: 10px;
     font-weight: bold;
     border: 2px solid rgba(95, 95, 95, .3);
+    justify-content: center;
+    align-items: center;
 }
 
 .scoreOne, .scoreTwo{
-    align-self: center;
-    padding-left: 40px;
-    font-size: 40px;
-}
-
-.playerOneScore{
-    background-image: linear-gradient(120deg, rgba(180, 180, 250, .3), rgba(130, 130, 250, .2));
-}
-
-.playerTwoScore{
-    background-image: linear-gradient(120deg, rgba(250, 180, 180, .3), rgba(250, 130, 130, .3));
+    padding-left: 5px;
+    font-size: 30px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
 }

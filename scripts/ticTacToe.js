@@ -125,7 +125,7 @@ function loadScore() {
   const playerTwoScore = document.querySelector('.scoreTwo');
   playerTwoScore.innerHTML = scoreO;
   console.log(playerTwoScore);
- resetGame();
+  resetGame();
 }
 
 const createGrid = () => {

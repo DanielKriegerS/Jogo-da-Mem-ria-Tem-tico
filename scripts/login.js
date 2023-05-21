@@ -13,34 +13,33 @@ function validateInput () {
 }
 }
 
-const openLogin = (event) => {
+const toggleMenuAndLogin = (event) => {
   event.preventDefault();
-  if (login.style.visibility === 'hidden') {
-    login.style.visibility = 'visible';
-    login.style.opacity = 1;
-  } else {
-    login.style.visibility = 'hidden';
-    login.style.opacity = 0;
-  }
-}
 
-const openMenu = (event) => {
-    event.preventDefault();
   if (menu.style.visibility === 'hidden') {
     menu.style.visibility = 'visible';
     menu.style.opacity = 1;
+
+    login.style.visibility = 'hidden';
+    login.style.opacity = 0;
   } else {
     menu.style.visibility = 'hidden';
     menu.style.opacity = 0;
+
+    login.style.visibility = 'visible';
+    login.style.opacity = 1;
   }
 }
 
-  form.addEventListener('submit', openMenu);
-  button.addEventListener('click', () => {
-    const playerOne = inputOne.value;
-    localStorage.setItem('playerOne', playerOne);
-    const playerTwo = inputTwo.value;
-    localStorage.setItem('playerTwo', playerTwo);
-  });
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const playerOne = inputOne.value;
+  localStorage.setItem('playerOne', playerOne);
+  const playerTwo = inputTwo.value;
+  localStorage.setItem('playerTwo', playerTwo);
+
+  toggleMenuAndLogin(event);
+});
+
   inputOne.addEventListener('input', validateInput);
   inputTwo.addEventListener('input', validateInput);
