@@ -1,14 +1,27 @@
-const input = document.querySelector('.login__input');
+const inputOne = document.querySelector('.player-one__input');
+const inputTwo = document.querySelector('.player-two__input');
 const button = document.querySelector('.login__button');
 const form = document.querySelector('.login-form');
 const menu = document.querySelector('.menu ul');
+const login = document.querySelector('.players__login');
 
-const validateInput = ({target}) => {
-    if (target.value.length > 2){
-        button.removeAttribute('disabled');
-    } else {
-        button.setAttribute('disabled', '');
-    }
+function validateInput () {
+  if (inputOne.value.length > 2 && inputTwo.value.length > 2){
+    button.removeAttribute('disabled');
+} else {
+    button.setAttribute('disabled', '');
+}
+}
+
+const openLogin = (event) => {
+  event.preventDefault();
+  if (login.style.visibility === 'hidden') {
+    login.style.visibility = 'visible';
+    login.style.opacity = 1;
+  } else {
+    login.style.visibility = 'hidden';
+    login.style.opacity = 0;
+  }
 }
 
 const openMenu = (event) => {
@@ -20,13 +33,14 @@ const openMenu = (event) => {
     menu.style.visibility = 'hidden';
     menu.style.opacity = 0;
   }
-};
+}
 
-
-
-  input.addEventListener('input', validateInput);
   form.addEventListener('submit', openMenu);
   button.addEventListener('click', () => {
-    const player = input.value;
-    localStorage.setItem('player', player);
+    const playerOne = inputOne.value;
+    localStorage.setItem('playerOne', playerOne);
+    const playerTwo = inputTwo.value;
+    localStorage.setItem('playerTwo', playerTwo);
   });
+  inputOne.addEventListener('input', validateInput);
+  inputTwo.addEventListener('input', validateInput);

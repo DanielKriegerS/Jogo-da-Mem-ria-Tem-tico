@@ -6,12 +6,20 @@
     justify-content: center;
 }
 
-.login__header {
+.players__login {
     align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-bottom: 50px;
+}
+
+.hidden {
+  display: none;
+}
+
+.login__header {
+  margin-bottom: 50px;
+  align-self: center;
 }
 
 .login__header img {
@@ -22,6 +30,7 @@
 .login__header h1 {
     color: #333;
     font-size: 1.5em;
+    margin-left: 20px;
 }
 
 .login__input {
@@ -33,6 +42,7 @@
     outline: none;
     padding: 15px;
     width: 100%;
+    margin: 10px;
 }
 
 .login__button {
@@ -97,4 +107,3 @@
   .menu a:hover {
     text-decoration: underline;
   }
-  

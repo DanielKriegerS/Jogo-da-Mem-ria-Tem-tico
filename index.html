@@ -1,35 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="./styles/reset.css">
-    <link rel="stylesheet" href="./styles/login.css">
-
-    <title>Jogos em HTML | login </title>
-</head>
-<body>
-    <form class="login-form">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <div class="login__header">
+        <link rel="stylesheet" href="./styles/reset.css">
+        <link rel="stylesheet" href="./styles/index.css">
+
+        <title>Jogos em HTML | Index </title>
+        
+    </head>
+<body>
+    <form class="index-form">
+       <div class="index__header">
             <img src="./assets/logo.jpg" alt="icon">
             <h1>Jogos do Dani</h1>
         </div>
 
-        <input type="text" placeholder="Nome" class="login__input">
-
-        <button type="submit" class="login__button" disabled>Play</button>
-        
-        <div class="menu">
-            <ul>
-              <span>Escolha seu game!</span>
-              <li><a href="./pages/memoryGame.html">Jogo da Memória</a></li>
-              <li><a href="./pages/ticTacToe.html">Jogo da velha</a></li>
-            </ul>
-          </div>
+        <div class="custom-select">
+            <label for="gameMode">Escolha o modo</label>
+            <select id="gameMode">
+                <option value="default">-- SELECIONE --</option>
+                <option value="training">Training</option>
+                <option value="vs">VS Mode</option>
+            </select>
+        </div>
     </form>
     
-    <script src="./scripts/login.js"></script>
+    <script src="./scripts/index.js"></script>
 </body>
 </html>

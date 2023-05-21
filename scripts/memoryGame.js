@@ -147,7 +147,6 @@ const sortedPlayers = JSON.parse(localStorage.getItem('players')).sort((a, b) =>
     name.innerHTML = player.name;
     time.innerHTML = player.time;
   }
-
   loadGame();
 }
   
@@ -170,6 +169,7 @@ const sortedPlayers = JSON.parse(localStorage.getItem('players')).sort((a, b) =>
         name.innerHTML = '';
         time.innerHTML = '';
     }
+    createPlayer();
     updateLeaderboard();
   }
 

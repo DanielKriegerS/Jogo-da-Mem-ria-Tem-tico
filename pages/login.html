@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogos em HTML | Login</title>
+    <link rel="stylesheet" href="../styles/reset.css">
+    <link rel="stylesheet" href="../styles/login.css">
+</head>
+<body>
+    <form class="login-form">
+        <div class="login__header">
+             <img src="../assets/logo.jpg" alt="icon">
+             <h1>Jogos do Dani</h1>
+         </div>
+
+         
+        <div class="players__login">
+            <input type="text" placeholder="Player One" class="player-one__input" id="loginOne">
+            <input type="text" placeholder="Player Two" class="player-two__input" id="loginTwo">
+
+            <button type="submit" class="login__button" disabled>Play</button>    
+        </div>
+                
+        <div class="menu">
+            <ul>
+              <span>Escolha seu game!</span>
+              <li><a href="../pages/memoryGame.html">Jogo da Memória</a></li>
+              <li><a href="../pages/ticTacToe.html">Jogo da velha</a></li>
+            </ul>
+          </div>
+    </form>
+
+    <script src="../scripts/login.js"></script>
+</body>
+</html>
