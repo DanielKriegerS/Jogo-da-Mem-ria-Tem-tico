@@ -18,16 +18,6 @@ let scoreO = 0;
 localStorage.setItem('scoreX', scoreX);
 localStorage.setItem('scoreO', scoreO);
 
-var playerTwoInput = document.querySelector('.playerTwoInput');
-
-const addPlayer = () => {
-    if(playerTwoInput){
-        var inputValue = playerTwoInput.value;
-        localStorage.setItem('playerTwo', inputValue);
-        playerTwo.innerHTML = localStorage.getItem('playerTwo');
-    }    
-}
-
 const playerTurn = () => {
   isBoardFull = true;
 
@@ -47,17 +37,6 @@ const playerTurn = () => {
       playerTwoSide.classList.add('turnTwo');
     } checkEndGame();
 }
-
-playerTwoForm.addEventListener('submit', (event) => {
-  event.preventDefault(); 
-  if (playerTwoInput.value !== '') {
-    main.classList.remove('main--hidden');
-    header.classList.add('header--hidden');
-  } else {
-    main.classList.add('main--hidden');
-    header.classList.remove('header--hidden');
-  }
-});
 
 function checkEndGame() {
   winner = false;
@@ -198,9 +177,8 @@ const backToLogin = () => {
 }
 
 window.onload = () => {
-    playerOne.innerHTML = localStorage.getItem('player');
+    playerOne.innerHTML = localStorage.getItem('playerOne');
+    playerTwo.innerHTML = localStorage.getItem('playerTwo');
     loadGame();
     createGrid();
 }
-
-submit.addEventListener('click', addPlayer);
