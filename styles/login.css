@@ -44,6 +44,15 @@
     padding: 15px;
     width: 100%;
     margin: 10px 0 5px 0;
+    transition: background-color 1.5s ease-in;
+}
+
+.input-hover {
+  background-color: #888;
+}
+
+.input-hover::placeholder {
+  transition: all 1s ease-in;
 }
 
 .login__button {

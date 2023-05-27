@@ -43,3 +43,27 @@ form.addEventListener('submit', (event) => {
 
   inputOne.addEventListener('input', validateInput);
   inputTwo.addEventListener('input', validateInput);
+
+  inputOne.addEventListener('mouseenter', () => {
+    inputOne.classList.add('input-hover');
+    inputOne.classList.add('placeholder-hover');
+    inputOne.setAttribute('placeholder', 'Máx 3 chars.');
+  });
+  
+  inputOne.addEventListener('mouseleave', () => {
+    inputOne.classList.remove('input-hover');
+    inputOne.classList.remove('placeholder-hover');
+    inputOne.setAttribute('placeholder', 'Player One');
+  });
+  
+  inputTwo.addEventListener('mouseenter', () => {
+    inputTwo.classList.add('input-hover');
+    inputTwo.classList.add('placeholder-hover');
+    inputTwo.setAttribute('placeholder', 'Máx 3 chars.');
+  });
+  
+  inputTwo.addEventListener('mouseleave', () => {
+    inputTwo.classList.remove('input-hover');
+    inputTwo.classList.remove('placeholder-hover');
+    inputTwo.setAttribute('placeholder', 'Player Two');
+  });
