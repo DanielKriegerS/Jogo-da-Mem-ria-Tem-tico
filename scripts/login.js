@@ -15,7 +15,6 @@ function validateInput () {
 
 const toggleMenuAndLogin = (event) => {
   event.preventDefault();
-
   if (menu.style.visibility === 'hidden') {
     menu.style.visibility = 'visible';
     menu.style.opacity = 1;
@@ -37,7 +36,8 @@ form.addEventListener('submit', (event) => {
   localStorage.setItem('playerOne', playerOne);
   const playerTwo = inputTwo.value;
   localStorage.setItem('playerTwo', playerTwo);
-
+  let isInGame = true;
+  localStorage.setItem('isInGame', isInGame);
   toggleMenuAndLogin(event);
 });
 
@@ -67,3 +67,12 @@ form.addEventListener('submit', (event) => {
     inputTwo.classList.remove('placeholder-hover');
     inputTwo.setAttribute('placeholder', 'Player Two');
   });
+
+  window.onload = () => {
+    if(localStorage.getItem('isInGame')) {
+      menu.style.visibility = 'visible';
+      menu.style.opacity = 1;
+      login.style.visibility = 'hidden';
+      login.style.opacity = 0;
+  }
+}

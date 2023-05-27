@@ -173,7 +173,7 @@ const resetGame = () => {
 }
 
 const backToLogin = () => {
-  window.location = '../index.html';
+  window.location = '../pages/login.html';
 }
 
 window.onload = () => {

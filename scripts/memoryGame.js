@@ -150,28 +150,6 @@ const sortedPlayers = JSON.parse(localStorage.getItem('players')).sort((a, b) =>
   loadGame();
 }
   
-  function createTable() {
-    const header = table.createTHead();
-    const row = header.insertRow();
-    const positionHeader = row.insertCell();
-    const nameHeader = row.insertCell();
-    const timeHeader = row.insertCell();
-    positionHeader.textContent = 'Pos';
-    nameHeader.textContent = 'Nome';
-    timeHeader.textContent = 'Tempo';
-
-    for (let i = 0; i < 10; i++) {
-        const row = table.insertRow();
-        const position = row.insertCell(0);
-        const name = row.insertCell(1);
-        const time = row.insertCell(2);
-        position.innerHTML = i + 1;
-        name.innerHTML = '';
-        time.innerHTML = '';
-    }
-    createPlayer();
-    updateLeaderboard();
-  }
 
 const loadGame = () => {
 
@@ -247,13 +225,12 @@ const getHighscore = () =>{
 }
 
 const backToLogin = () => {
-    window.location = '../index.html';
+    window.location = '../pages/login.html';
 }
 
 window.onload = () => {
-    spanPlayer.innerHTML = localStorage.getItem('player');
+    spanPlayer.innerHTML = localStorage.getItem('playerOne');
     startTimer();
-    createTable();
     loadGame();
 }
 
