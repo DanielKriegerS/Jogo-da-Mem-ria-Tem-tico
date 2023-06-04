@@ -5,10 +5,15 @@ const pause = document.querySelector('.pause');
 const play = document.querySelector('.play');
 const highscore = document.querySelector('.highscore');
 const table = document.querySelector('#leaderboard');
+const playerAName = document.querySelector('.playerAName');
+const playerBName = document.querySelector('.playerBName');
+const playerAPont = document.querySelector('.playerAPont');
+const playerBPont = document.querySelector('.playerBPont');
 let score;
 let players = [];
 let loop;
 let isPaused = false;
+let playerInTurn;
 
 class Player {
     constructor(name, time) {
@@ -17,19 +22,27 @@ class Player {
     }
   }
 
-  const actualPlayer = new Player();
-
   function createPlayer(playerName, playerTime) {
-     playerName = spanPlayer.innerHTML;
-     playerTime = score;
-     actualPlayer.name = playerName;
-     actualPlayer.time = playerTime;
-    players.push(actualPlayer);
-    localStorage.setItem('players', JSON.stringify(players));
-    updateLeaderboard();
+    const player = new Player(playerName, playerTime);
+    if(localStorage.getItem('playerInTurn') === localStorage.getItem('playerOne')){
+        playerAPont.innerHTML = localStorage.getItem('playerAPont');
+       
+    } else {
+        playerBPont.innerHTML = localStorage.getItem('playerBPont');
+    }
+    return player;
   }
   
-  
+  function turnPlayer(){
+    if(localStorage.getItem('playerInTurn') === localStorage.getItem('playerOne')){
+    localStorage.setItem('playerInTurn', localStorage.getItem('playerTwo'));
+    spanPlayer.innerHTML = localStorage.getItem('playerTwo');
+  } else {
+    localStorage.setItem('playerInTurn', localStorage.getItem('playerOne'));
+    spanPlayer.innerHTML = localStorage.getItem('playerOne');
+  } 
+   loadGame();
+  }
 
 const characters = [
     'all-doc-card',
@@ -58,9 +71,9 @@ const checkEndGame = () => {
 
     if (disabledCards.length === 2){
         clearInterval(this.loop);
-        alert(`Parabéns, ${spanPlayer.innerHTML}, você venceu! O tempo foi: ${timer.innerHTML} segundos.`);
-        score = timer.innerHTML;
-        getHighscore();   
+        alert(`Parabéns, ${localStorage.getItem('playerInTurn')}, você venceu! O tempo foi: ${timer.innerHTML} segundos.`);
+        score = parseInt(timer.innerHTML);
+        calculateScore(localStorage.getItem('playerInTurn'), score);
     }   
 }
 
@@ -110,7 +123,7 @@ const revealCard = ({target}) => {
         target.parentNode.classList.add('reveal-card');
         secondCard = target.parentNode; 
         checkCards();
-
+        checkEndGame();
     }
 }
 }
@@ -130,26 +143,7 @@ const createCard = (character) => {
     card.setAttribute('data-character', character)
 
     return card;
-}
-
-function updateLeaderboard() {
-const sortedPlayers = JSON.parse(localStorage.getItem('players')).sort((a, b) => a.time - b.time);
-
-  for (let i = 0; i < sortedPlayers.length && i < 10; i++) {
-    const player = sortedPlayers[i];
-    const row = table.rows[i+2];
-
-    const position = row.cells[0];
-    const name = row.cells[1];
-    const time = row.cells[2];
-
-    position.innerHTML = i + 1;
-    name.innerHTML = player.name;
-    time.innerHTML = player.time;
-  }
-  loadGame();
-}
-  
+} 
 
 const loadGame = () => {
 
@@ -173,7 +167,13 @@ const loadGame = () => {
         grid.appendChild(card);
 
     });
+
     startTimer();
+    
+    playerAName.innerHTML = localStorage.getItem('playerOne');
+    playerBName.innerHTML = localStorage.getItem('playerTwo');
+    playerAPont.innerHTML = localStorage.getItem('playerAPont');
+    playerBPont.innerHTML = localStorage.getItem('playerBPont');
 }
 
 const startTimer = () => {
@@ -210,8 +210,7 @@ const continueTimer = () => {
 const getHighscore = () =>{
     let result = localStorage.getItem('highscore') || 100000000;
     let highPlayer;
-    createPlayer(actualPlayer.name, actualPlayer.time);
-    if (actualPlayer.time < result) {
+    if (localStorage.getItem() < result) {
         result = actualPlayer.time;
         highPlayer = localStorage.getItem('highPlayer');
         highscore.innerHTML = `${highPlayer} | ${this.highscore}`;
@@ -219,10 +218,40 @@ const getHighscore = () =>{
         localStorage.setItem('highscore', actualPlayer.time);
     } else {
         alert(`Foi por pouco, mais sorte na próxima.`);
-    }
-    
-    updateLeaderboard();
+    }   
 }
+
+function calculateScore(playerName, playerScore) {
+    if (playerName === localStorage.getItem('playerOne')) {
+      if (parseInt(localStorage.getItem('playerAPont')) !== 0) {
+        if (playerScore > parseInt(localStorage.getItem('playerAPont'))) {
+          console.log('Não foi dessa vez');
+        } else {
+          localStorage.setItem('playerAPont', playerScore.toString());
+          playerAName.innerHTML = localStorage.getItem('playerAPont');
+        }
+        turnPlayer();
+      } else {
+        localStorage.setItem('playerAPont', playerScore.toString());
+        playerAName.innerHTML = localStorage.getItem('playerAPont');
+        turnPlayer();
+      }
+    } else {
+      if (parseInt(localStorage.getItem('playerBPont')) !== 0) {
+        if (playerScore > parseInt(localStorage.getItem('playerBPont'))) {
+          console.log('Não foi dessa vez');
+        } else {
+          localStorage.setItem('playerBPont', playerScore.toString());
+          playerBName.innerHTML = localStorage.getItem('playerBPont');
+        }
+        turnPlayer();
+      } else {
+        localStorage.setItem('playerBPont', playerScore.toString());
+        playerBName.innerHTML = localStorage.getItem('playerBPont');
+        turnPlayer();
+      }
+    }
+  }
 
 const backToLogin = () => {
     window.location = '../pages/login.html';
@@ -230,6 +259,10 @@ const backToLogin = () => {
 
 window.onload = () => {
     spanPlayer.innerHTML = localStorage.getItem('playerOne');
+    playerInTurn = localStorage.getItem('playerOne');
+    localStorage.setItem('playerInTurn', playerInTurn);
+    createPlayer(localStorage.getItem('playerOne'), parseInt(localStorage.getItem('playerAPont')));
+    createPlayer(localStorage.getItem('playerTwo'), parseInt(localStorage.getItem('playerBPont')));
     startTimer();
     loadGame();
 }
