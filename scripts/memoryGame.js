@@ -3,7 +3,7 @@ const spanPlayer = document.querySelector('.player');
 const timer = document.querySelector('.timer');
 const pause = document.querySelector('.pause');
 const play = document.querySelector('.play');
-const highscore = document.querySelector('.highscore');
+const turns = document.querySelector('.turns');
 const table = document.querySelector('#leaderboard');
 const playerAName = document.querySelector('.playerAName');
 const playerBName = document.querySelector('.playerBName');
@@ -14,6 +14,7 @@ let players = [];
 let loop;
 let isPaused = false;
 let playerInTurn;
+let isMGEnded = false;
 
 class Player {
     constructor(name, time) {
@@ -24,24 +25,31 @@ class Player {
 
   function createPlayer(playerName, playerTime) {
     const player = new Player(playerName, playerTime);
+    let turnsA = 2;
+    let turnsB = 2;
     if(localStorage.getItem('playerInTurn') === localStorage.getItem('playerOne')){
         playerAPont.innerHTML = localStorage.getItem('playerAPont');
-       
+        localStorage.setItem('turnsA', (turnsA));
     } else {
         playerBPont.innerHTML = localStorage.getItem('playerBPont');
+        localStorage.setItem('turnsB', (turnsB));
     }
     return player;
   }
   
   function turnPlayer(){
+    var turnsA = parseInt(localStorage.getItem('turnsA'));
+    var turnsB = parseInt(localStorage.getItem('turnsB'));
     if(localStorage.getItem('playerInTurn') === localStorage.getItem('playerOne')){
     localStorage.setItem('playerInTurn', localStorage.getItem('playerTwo'));
-    spanPlayer.innerHTML = localStorage.getItem('playerTwo');
+    turnsA -= 1;
+    localStorage.setItem('turnsA', turnsA);
   } else {
     localStorage.setItem('playerInTurn', localStorage.getItem('playerOne'));
-    spanPlayer.innerHTML = localStorage.getItem('playerOne');
+    turnsB -= 1;
+    localStorage.setItem('turnsB', turnsB);
   } 
-   loadGame();
+   checkTurns();
   }
 
 const characters = [
@@ -145,6 +153,28 @@ const createCard = (character) => {
     return card;
 } 
 
+const checkTurns = () => {
+    var turnsA = parseInt(localStorage.getItem('turnsA'));
+    var turnsB = parseInt(localStorage.getItem('turnsB'));
+  
+    if (turnsA === 0 && turnsB === 0) {
+        if (localStorage.getItem('playerBPont') > localStorage.getItem('playerAPont')){
+            let aWinner = parseInt(localStorage.getItem('aWins'))+1 || 1;
+            localStorage.setItem('aWins', aWinner);
+        } else {
+            let bWinner = parseInt(localStorage.getItem('bWins'))+1 || 1;
+            localStorage.setItem('bWins', bWinner);
+        }
+        isMGEnded = true;
+        localStorage.setItem('isMGEnded', isMGEnded);
+      window.location.href = 'overallScore.html';
+    } else if (turnsA === 0) {
+      const playerADiv = document.querySelector('.playerA');
+      playerADiv.style.background = 'rgba(180, 180, 250, .5)';
+    }
+    loadGame();
+  }
+
 const loadGame = () => {
 
     if (grid.children.length > 0) {
@@ -174,6 +204,18 @@ const loadGame = () => {
     playerBName.innerHTML = localStorage.getItem('playerTwo');
     playerAPont.innerHTML = localStorage.getItem('playerAPont');
     playerBPont.innerHTML = localStorage.getItem('playerBPont');
+
+    if(localStorage.getItem('playerInTurn')){
+        spanPlayer.innerHTML = localStorage.getItem('playerInTurn');
+        if(localStorage.getItem('playerInTurn') === localStorage.getItem('playerOne')){
+            turns.innerHTML = localStorage.getItem('turnsA');
+        } else {
+            turns.innerHTML = localStorage.getItem('turnsB');
+        }
+    } else {
+        spanPlayer.innerHTML = localStorage.getItem('playerOne');
+        localStorage.setItem('playerInTurn', localStorage.getItem('playerOne'));
+    }
 }
 
 const startTimer = () => {
@@ -205,20 +247,6 @@ const continueTimer = () => {
         timer.innerHTML = currentTime + 1;
     }, 1000);
     isPaused = false;
-}
-
-const getHighscore = () =>{
-    let result = localStorage.getItem('highscore') || 100000000;
-    let highPlayer;
-    if (localStorage.getItem() < result) {
-        result = actualPlayer.time;
-        highPlayer = localStorage.getItem('highPlayer');
-        highscore.innerHTML = `${highPlayer} | ${this.highscore}`;
-        localStorage.setItem('highPlayer', highPlayer);
-        localStorage.setItem('highscore', actualPlayer.time);
-    } else {
-        alert(`Foi por pouco, mais sorte na próxima.`);
-    }   
 }
 
 function calculateScore(playerName, playerScore) {
@@ -254,13 +282,18 @@ function calculateScore(playerName, playerScore) {
   }
 
 const backToLogin = () => {
-    window.location = '../pages/login.html';
+    window.location = '../pages/overallScore.html';
 }
 
 window.onload = () => {
-    spanPlayer.innerHTML = localStorage.getItem('playerOne');
-    playerInTurn = localStorage.getItem('playerOne');
-    localStorage.setItem('playerInTurn', playerInTurn);
+    if(localStorage.getItem('playerInTurn')){
+        spanPlayer.innerHTML = localStorage.getItem('playerInTurn');
+    } else {
+        spanPlayer.innerHTML = localStorage.getItem('playerOne');
+        localStorage.setItem('playerInTurn', localStorage.getItem('playerOne'));
+    }
+    localStorage.setItem('turnsA', 2);
+    localStorage.setItem('turnsB', 2);
     createPlayer(localStorage.getItem('playerOne'), parseInt(localStorage.getItem('playerAPont')));
     createPlayer(localStorage.getItem('playerTwo'), parseInt(localStorage.getItem('playerBPont')));
     startTimer();

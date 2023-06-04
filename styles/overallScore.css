@@ -1,0 +1,55 @@
+body{
+    align-items: center;
+}
+
+.header{
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    width: 100%;
+    align-items: center;
+}
+
+.content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.content{
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    padding: 5px;
+    align-items: center;
+}
+
+.memoryGame, .ticTacToe {
+    padding-top: 20px;
+    width: 400px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content h3 {
+    padding-top: 20px;
+}
+
+.imageMemory {
+    width: 80px;
+    height: 80px;
+    padding: 20px;
+    background-size: cover;
+    background-position: center;
+    background-image: url('../assets/all-doc-card.jpg');
+}
+
+.imageTicTac {
+    width: 80px;
+    height: 80px;
+    background-size: cover;
+    background-position: center;
+    background-image: url('../assets/logo.jpg');
+}

@@ -69,10 +69,8 @@ form.addEventListener('submit', (event) => {
   });
 
   window.onload = () => {
-    if(localStorage.getItem('isInGame')) {
       menu.style.visibility = 'visible';
       menu.style.opacity = 1;
       login.style.visibility = 'hidden';
       login.style.opacity = 0;
-  }
 }
