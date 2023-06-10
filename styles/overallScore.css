@@ -19,7 +19,7 @@ body {
 } 
 
 .restart__button {
-    background-color: #cc1c0f;
+    background-color: var(--bg-color);
     border-radius: 8px;
     color: white;
     padding: 15px;

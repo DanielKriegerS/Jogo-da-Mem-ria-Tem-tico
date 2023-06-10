@@ -45,6 +45,18 @@ restart.addEventListener('click', function() {
   });
 
 window.onload = () => {
-    showWinners();
-    checkGames();
+    if (localStorage.getItem('playerOne') !== null && 
+    localStorage.getItem('playerTwo') !== null && 
+    localStorage.getItem('playerInTurn') !== null) {
+        showWinners();
+        checkGames();
+      } else {
+    const message = 'Os players não estão corretamente definidos.';
+
+    alert(message);
+
+    setTimeout(() => {
+      window.location.href = './login.html';
+    }, 1000);
+  } 
 }

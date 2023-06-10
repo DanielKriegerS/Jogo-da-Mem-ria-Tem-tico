@@ -194,8 +194,26 @@ const backToLogin = () => {
 }
 
 window.onload = () => {
-    playerOne.innerHTML = localStorage.getItem('playerOne');
-    playerTwo.innerHTML = localStorage.getItem('playerTwo');
-    loadGame();
-    createGrid();
+  
+if (localStorage.getItem('playerOne') !== null && 
+localStorage.getItem('playerTwo') !== null && 
+localStorage.getItem('playerInTurn') !== null) {
+  playerOne.innerHTML = localStorage.getItem('playerOne');
+  playerTwo.innerHTML = localStorage.getItem('playerTwo');
+  loadGame();
+  createGrid();
+} else {
+  let message = 'Os players não estão corretamente definidos.';
+  alert(message);
+  setTimeout(() => {
+  window.location.href = './login.html';
+}, 1000);}
+  
+if (localStorage.getItem('isTTTEnded') === 'true'){
+  let message = 'Esse jogo já foi encerrado.';
+  alert(message); 
+  setTimeout(() => {
+      window.location.href = './overallScore.html';
+  }, 1000);
+}
 }

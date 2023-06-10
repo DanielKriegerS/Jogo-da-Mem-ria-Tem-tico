@@ -284,19 +284,32 @@ const backToLogin = () => {
 }
 
 window.onload = () => {
-    if(localStorage.getItem('playerInTurn')){
-        spanPlayer.innerHTML = localStorage.getItem('playerInTurn');
-    } else {
-        spanPlayer.innerHTML = localStorage.getItem('playerOne');
-        localStorage.setItem('playerInTurn', localStorage.getItem('playerOne'));
-    }
+    if (localStorage.getItem('playerOne') !== null && 
+    localStorage.getItem('playerTwo') !== null && 
+    localStorage.getItem('playerInTurn') !== null) {
+        
+    spanPlayer.innerHTML = localStorage.getItem('playerInTurn');
     localStorage.setItem('turnsA', 2);
     localStorage.setItem('turnsB', 2);
     createPlayer(localStorage.getItem('playerOne'), parseInt(localStorage.getItem('playerAPont')));
     createPlayer(localStorage.getItem('playerTwo'), parseInt(localStorage.getItem('playerBPont')));
     startTimer();
     loadGame();
-}
+      } else {
+    let message = 'Os players não estão corretamente definidos.';
+    alert(message);
+    setTimeout(() => {
+      window.location.href = './login.html';
+    }, 1000);
+  } 
 
+  if (localStorage.getItem('isMGEnded') === 'true'){
+    let message = 'Esse jogo já foi encerrado.';
+    alert(message); 
+    setTimeout(() => {
+        window.location.href = './overallScore.html';
+    }, 1000);
+  }
+}
 pause.addEventListener('click', pauseTimer);
 play.addEventListener('click', continueTimer);
