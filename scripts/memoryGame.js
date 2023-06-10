@@ -153,25 +153,28 @@ const createCard = (character) => {
     return card;
 } 
 
-const checkTurns = () => {
-    var turnsA = parseInt(localStorage.getItem('turnsA'));
-    var turnsB = parseInt(localStorage.getItem('turnsB'));
-  
-    if (turnsA === 0 && turnsB === 0) {
-        if (localStorage.getItem('playerBPont') > localStorage.getItem('playerAPont')){
-            localStorage.setItem('winnerMG', localStorage.getItem('playerOne'));
-        } else {
-            localStorage.setItem('winnerMG', localStorage.getItem('playerTwo'));
+  const checkTurns = () => {
+      var turnsA = parseInt(localStorage.getItem('turnsA'));
+      var turnsB = parseInt(localStorage.getItem('turnsB'));
+    
+      if (turnsA === 0 && turnsB === 0) {
+          if (localStorage.getItem('playerBPont') > localStorage.getItem('playerAPont')){
+              localStorage.setItem('winnerMG', localStorage.getItem('playerOne'));
+          } else if (localStorage.getItem('playerAPont') > localStorage.getItem('playerBPont')) {
+              localStorage.setItem('winnerMG', localStorage.getItem('playerTwo'));
+          } else {
+            localStorage.setItem('winnerMG', 'EMPATE');
+          }
+          isMGEnded = true;
+          localStorage.setItem('isMGEnded', isMGEnded);
+          localStorage.setItem('isInGame', 'false');
+        setTimeout(() =>{
+          window.location.href = 'overallScore.html';
+        })
+          
+      loadGame();
         }
-        isMGEnded = true;
-        localStorage.setItem('isMGEnded', isMGEnded);
-      window.location.href = 'overallScore.html';
-    } else if (turnsA === 0) {
-      const playerADiv = document.querySelector('.playerA');
-      playerADiv.style.background = 'rgba(180, 180, 250, .5)';
     }
-    loadGame();
-  }
 
 const loadGame = () => {
 

@@ -9,11 +9,15 @@ const main = document.querySelector('.main');
 const grid = Array.from(Array(3), () => new Array(3).fill(''));
 const gridContainer = document.querySelector('.grid');
 const playerTwoForm = document.querySelector('#playerTwoForm');
+const turns = document.querySelector('.turns');
+
 let isBoardFull = false;
 let winner = false;
+
 var currentPlayer = 'X';
 var scoreX = 0;
 var scoreO = 0;
+var turnedTimes = 10;
 
 localStorage.setItem('scoreX', scoreX);
 localStorage.setItem('scoreO', scoreO);
@@ -35,7 +39,9 @@ const playerTurn = () => {
     } else {
       playerOneSide.classList.remove('turnOne');
       playerTwoSide.classList.add('turnTwo');
-    } checkEndGame();
+    } 
+    
+    checkEndGame();
 }
 
 function checkEndGame() {
@@ -104,6 +110,7 @@ function checkEndGame() {
     loadScore();
     return;
   }
+
   checkDraw();
 }
 
@@ -154,8 +161,8 @@ const loadGame = () => {
         while (grid.firstChild) {
       grid.removeChild(grid.firstChild);
     }
- }
- playerTurn(); 
+  }
+  playerTurn(); 
 }
 
 const resetGame = () => {
@@ -169,6 +176,8 @@ const resetGame = () => {
         grid[i][j] = '';
       }
     }
+    turnedTimes = turnedTimes - 1;
+    turns.innerHTML = turnedTimes;
     checkWinner();
   }
 }
@@ -177,12 +186,27 @@ function checkWinner () {
   if (localStorage.getItem('scoreO') === '5'){
     localStorage.setItem('winnerTTT', localStorage.getItem('playerTwo'));
     localStorage.setItem('isTTTEnded', 'true');
+    localStorage.setItem('isInGame', 'false');
     window.location = '../pages/overallScore.html';
-  } else if(localStorage.getItem('scoreX') === '5'){
+  } else if (localStorage.getItem('scoreX') === '5'){
     localStorage.setItem('winnerTTT', localStorage.getItem('playerOne'));
     localStorage.setItem('isTTTEnded', 'true');
+    localStorage.setItem('isInGame', 'false');
     window.location = '../pages/overallScore.html';
-  } 
+  } else if (turnedTimes === 0) {
+    scoreX = parseInt(localStorage.getItem('scoreX'));
+    scoreO = parseInt(localStorage.getItem('scoreO'));
+  if (scoreX > scoreO) {
+    localStorage.setItem('winnerTTT', localStorage.getItem('playerOne'));
+  } else if (scoreO > scoreX) {
+    localStorage.setItem('winnerTTT', localStorage.getItem('playerTwo'));
+  } else {
+    localStorage.setItem('winnerTTT', 'EMPATE');
+  }
+  localStorage.setItem('isTTTEnded', 'true');
+  localStorage.setItem('isInGame', 'false');
+  window.location = '../pages/overallScore.html';
+  }
 }
 
 const backToLogin = () => {
@@ -194,12 +218,13 @@ const backToLogin = () => {
 }
 
 window.onload = () => {
-  
 if (localStorage.getItem('playerOne') !== null && 
 localStorage.getItem('playerTwo') !== null && 
 localStorage.getItem('playerInTurn') !== null) {
   playerOne.innerHTML = localStorage.getItem('playerOne');
   playerTwo.innerHTML = localStorage.getItem('playerTwo');
+  turns.innerHTML = turnedTimes;
+
   loadGame();
   createGrid();
 } else {
@@ -207,7 +232,8 @@ localStorage.getItem('playerInTurn') !== null) {
   alert(message);
   setTimeout(() => {
   window.location.href = './login.html';
-}, 1000);}
+  }, 1000);
+}
   
 if (localStorage.getItem('isTTTEnded') === 'true'){
   let message = 'Esse jogo já foi encerrado.';

@@ -112,3 +112,11 @@ body{
     justify-content: center;
     align-items: center;
 }
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 675px;
+    max-width: 100%;
+}

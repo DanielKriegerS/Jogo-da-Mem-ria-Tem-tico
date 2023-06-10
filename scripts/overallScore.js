@@ -26,15 +26,10 @@ function showWinners () {
 function checkGames () {
     if (localStorage.getItem('isMGEnded') === 'true'){
         memoryGame.classList.add('ended');
-    } else {
-        return;
     }
     if (localStorage.getItem('isTTTEnded') === 'true'){
         ticTacToe.classList.add('ended');
-    } else {
-        return;
     }
-
     if (localStorage.getItem('isMGEnded') === 'true' && localStorage.getItem('isTTTEnded') === 'true'){
         restart.removeAttribute('disabled');
     }
@@ -50,11 +45,9 @@ window.onload = () => {
     localStorage.getItem('playerInTurn') !== null) {
         showWinners();
         checkGames();
-      } else {
+    } else {
     const message = 'Os players não estão corretamente definidos.';
-
     alert(message);
-
     setTimeout(() => {
       window.location.href = './login.html';
     }, 1000);
