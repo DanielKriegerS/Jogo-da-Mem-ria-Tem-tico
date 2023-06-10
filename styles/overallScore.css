@@ -3,18 +3,40 @@
     --end-color: rgba (20, 120, 60, .4);
 }
 
-body{
+body {
     align-items: center;
 }
 
-.header{
+.header {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    width: 400px;
     padding-top: 20px;
     max-width: 100%;
     width: 100%;
     align-items: center;
+    justify-content: center;
+} 
+
+.restart__button {
+    background-color: #cc1c0f;
+    border-radius: 8px;
+    color: white;
+    padding: 15px;
+    margin: 15px;
+    cursor: pointer;
+    font-size: 1em;
+    max-width: 300px;
+    width: 100%;
+    align-self: center;
 }
+
+.restart__button:disabled {
+    background-color: #ccc;
+    color: #aaa;
+    cursor: auto;
+}
+
 
 .content{
     display: flex;

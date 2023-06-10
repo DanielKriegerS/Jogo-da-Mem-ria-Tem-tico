@@ -3,6 +3,7 @@ const winnerTTT = document.querySelector('.winnerTTT');
 const winnerCS = document.querySelector('.winnerCS');
 const memoryGame = document.querySelector('.memoryGame');
 const ticTacToe = document.querySelector('.ticTacToe');
+const restart = document.querySelector('.restart__button');
 
 function showWinners () {
     if (localStorage.getItem('winnerMG')){
@@ -33,7 +34,15 @@ function checkGames () {
     } else {
         return;
     }
+
+    if (localStorage.getItem('isMGEnded') === 'true' && localStorage.getItem('isTTTEnded') === 'true'){
+        restart.removeAttribute('disabled');
+    }
 }
+
+restart.addEventListener('click', function() {
+    window.location.href = '../index.html';
+  });
 
 window.onload = () => {
     showWinners();

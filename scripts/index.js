@@ -6,9 +6,7 @@ gameModeSelect.addEventListener("change", () => {
     setTimeout(() => {
         window.location.href = './pages/login.html';
       }, 2000);
-  } else {
-    playerLoginContainer.classList.add("hidden");
-  }
+  } 
 });
-
+localStorage.clear();
 localStorage.setItem('isInGame', isInGame);
