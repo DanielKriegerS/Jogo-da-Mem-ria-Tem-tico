@@ -159,11 +159,9 @@ const checkTurns = () => {
   
     if (turnsA === 0 && turnsB === 0) {
         if (localStorage.getItem('playerBPont') > localStorage.getItem('playerAPont')){
-            let aWinner = parseInt(localStorage.getItem('aWins'))+1 || 1;
-            localStorage.setItem('aWins', aWinner);
+            localStorage.setItem('winnerMG', localStorage.getItem('playerOne'));
         } else {
-            let bWinner = parseInt(localStorage.getItem('bWins'))+1 || 1;
-            localStorage.setItem('bWins', bWinner);
+            localStorage.setItem('winnerMG', localStorage.getItem('playerTwo'));
         }
         isMGEnded = true;
         localStorage.setItem('isMGEnded', isMGEnded);

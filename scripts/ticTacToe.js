@@ -12,8 +12,8 @@ const playerTwoForm = document.querySelector('#playerTwoForm');
 let isBoardFull = false;
 let winner = false;
 var currentPlayer = 'X';
-let scoreX = 0;
-let scoreO = 0;
+var scoreX = 0;
+var scoreO = 0;
 
 localStorage.setItem('scoreX', scoreX);
 localStorage.setItem('scoreO', scoreO);
@@ -169,11 +169,28 @@ const resetGame = () => {
         grid[i][j] = '';
       }
     }
+    checkWinner();
   }
 }
 
+function checkWinner () {
+  if (localStorage.getItem('scoreO') === '5'){
+    localStorage.setItem('winnerTTT', localStorage.getItem('playerTwo'));
+    localStorage.setItem('isTTTEnded', 'true');
+    window.location = '../pages/overallScore.html';
+  } else if(localStorage.getItem('scoreX') === '5'){
+    localStorage.setItem('winnerTTT', localStorage.getItem('playerOne'));
+    localStorage.setItem('isTTTEnded', 'true');
+    window.location = '../pages/overallScore.html';
+  } 
+}
+
 const backToLogin = () => {
-  window.location = '../pages/login.html';
+  if(localStorage.getItem('isInGame') === 'true'){
+    window.location = '../pages/overallScore.html';
+  } else{
+    window.location = '../pages/login.html';
+  }
 }
 
 window.onload = () => {

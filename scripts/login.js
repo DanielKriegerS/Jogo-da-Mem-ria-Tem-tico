@@ -38,6 +38,7 @@ form.addEventListener('submit', (event) => {
   localStorage.setItem('playerTwo', playerTwo);
   let isInGame = true;
   localStorage.setItem('isInGame', isInGame);
+  localStorage.setItem('playerInTurn', playerOne);
   toggleMenuAndLogin(event);
 });
 
@@ -69,8 +70,7 @@ form.addEventListener('submit', (event) => {
   });
 
   window.onload = () => {
-      menu.style.visibility = 'visible';
-      menu.style.opacity = 1;
-      login.style.visibility = 'hidden';
-      login.style.opacity = 0;
+   if (localStorage.getItem('isInGame') === 'true'){
+    window.location.href = 'overallScore.html'; 
+   }
 }
