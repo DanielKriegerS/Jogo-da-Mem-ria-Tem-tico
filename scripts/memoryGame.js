@@ -44,12 +44,15 @@ class Player {
     localStorage.setItem('playerInTurn', localStorage.getItem('playerTwo'));
     turnsA -= 1;
     localStorage.setItem('turnsA', turnsA);
+    checkTurns();
+    return;
   } else {
     localStorage.setItem('playerInTurn', localStorage.getItem('playerOne'));
     turnsB -= 1;
     localStorage.setItem('turnsB', turnsB);
+    checkTurns();
+    return;
   } 
-   checkTurns();
   }
 
 const characters = [
@@ -170,10 +173,9 @@ const createCard = (character) => {
           localStorage.setItem('isInGame', 'false');
         setTimeout(() =>{
           window.location.href = 'overallScore.html';
-        })
-          
+        })    
+      }
       loadGame();
-        }
     }
 
 const loadGame = () => {
