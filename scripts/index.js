@@ -1,6 +1,5 @@
 const gameModeSelect = document.getElementById("gameMode");
 const playerLoginContainer = document.querySelector(".players__login");
-const isInGame = false;
 gameModeSelect.addEventListener("change", () => {
   if (gameModeSelect.value === "vs") {
     setTimeout(() => {
@@ -9,4 +8,3 @@ gameModeSelect.addEventListener("change", () => {
   } 
 });
 localStorage.clear();
-localStorage.setItem('isInGame', isInGame);

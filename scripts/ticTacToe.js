@@ -10,17 +10,13 @@ const grid = Array.from(Array(3), () => new Array(3).fill(''));
 const gridContainer = document.querySelector('.grid');
 const playerTwoForm = document.querySelector('#playerTwoForm');
 const turns = document.querySelector('.turns');
-
+const playerOneScore = document.querySelector('.scoreOne');
+const playerTwoScore = document.querySelector('.scoreTwo');
 let isBoardFull = false;
 let winner = false;
-
+let turnedTimes;
 var currentPlayer = 'X';
-var scoreX = 0;
-var scoreO = 0;
-var turnedTimes = 10;
 
-localStorage.setItem('scoreX', scoreX);
-localStorage.setItem('scoreO', scoreO);
 
 const playerTurn = () => {
   isBoardFull = true;
@@ -49,13 +45,11 @@ function checkEndGame() {
   for (let i = 0; i < 3; i++) {
     if (grid[i][0] !== '' && grid[i][0] === grid[i][1] && grid[i][1] === grid[i][2]) {
       if(grid[i][0] == 'X'){
-        scoreX++;
+        let scoreX = parseInt(localStorage.getItem('scoreX')) + 1;
         localStorage.setItem('scoreX', scoreX);
-        console.log('Vencedor X');
       } else{
-        scoreO++;
+        let scoreO = parseInt(localStorage.getItem('scoreO')) + 1;
         localStorage.setItem('scoreO', scoreO);
-        console.log('Vencedor O');
       } 
       winner = true;
       loadScore();
@@ -67,13 +61,11 @@ function checkEndGame() {
   for (let j = 0; j < 3; j++) {
     if (grid[0][j] !== '' && grid[0][j] === grid[1][j] && grid[1][j] === grid[2][j]) {
       if(grid[0][j] == 'X'){
-        scoreX++;
+        let scoreX = parseInt(localStorage.getItem('scoreX')) + 1;
         localStorage.setItem('scoreX', scoreX);
-      console.log('Vencedor X');
       } else{
-        scoreO++;
+        let scoreO = parseInt(localStorage.getItem('scoreO')) + 1;
         localStorage.setItem('scoreO', scoreO);
-        console.log('Vencedor O');
       }
       winner = true;
       loadScore();
@@ -83,13 +75,11 @@ function checkEndGame() {
 
   if (grid[0][0] !== '' && grid[0][0] === grid[1][1] && grid[1][1] === grid[2][2]) {
     if(grid[0][0] == 'X'){
-      scoreX++;
+      let scoreX = parseInt(localStorage.getItem('scoreX')) + 1;
       localStorage.setItem('scoreX', scoreX);
-      console.log('Vencedor X');
     } else{
-      scoreO++;
-      localStorage.setItem('scoreO', scoreO);
-      console.log('Vencedor O'); 
+      let scoreO = parseInt(localStorage.getItem('scoreO')) + 1;
+      localStorage.setItem('scoreO', scoreO); 
     }
     winner = true;
     loadScore();
@@ -98,13 +88,11 @@ function checkEndGame() {
 
   if (grid[0][2] !== '' && grid[0][2] === grid[1][1] && grid[1][1] === grid[2][0]) {
     if(grid[0][2] == 'X'){
-      scoreX++;
+      let scoreX = parseInt(localStorage.getItem('scoreX')) + 1;
       localStorage.setItem('scoreX', scoreX);
-      console.log('Vencedor X');
     } else{
-      scoreO++;
+      let scoreO = parseInt(localStorage.getItem('scoreO')) + 1;
       localStorage.setItem('scoreO', scoreO);
-      console.log('Vencedor O');
     }
     winner = true;
     loadScore();
@@ -123,13 +111,11 @@ function checkDraw() {
 }
 
 function loadScore() {
-  scoreO = localStorage.getItem('scoreO');
-  scoreX = localStorage.getItem('scoreX');
+  let scoreO = parseInt(localStorage.getItem('scoreO'));
+  let scoreX = parseInt(localStorage.getItem('scoreX'));
 
-  const playerOneScore = document.querySelector('.scoreOne');
   playerOneScore.innerHTML = scoreX;
   console.log(playerOneScore);
-  const playerTwoScore = document.querySelector('.scoreTwo');
   playerTwoScore.innerHTML = scoreO;
   console.log(playerTwoScore);
   resetGame();
@@ -176,8 +162,9 @@ const resetGame = () => {
         grid[i][j] = '';
       }
     }
-    turnedTimes = turnedTimes - 1;
-    turns.innerHTML = turnedTimes;
+    turnedTimes = localStorage.getItem('turnedTimes') - 1;
+    localStorage.setItem('turnedTimes', turnedTimes);
+    turns.innerHTML = localStorage.getItem('turnedTimes');
     checkWinner();
   }
 }
@@ -194,8 +181,8 @@ function checkWinner () {
     localStorage.setItem('isInGame', 'false');
     window.location = '../pages/overallScore.html';
   } else if (turnedTimes === 0) {
-    scoreX = parseInt(localStorage.getItem('scoreX'));
-    scoreO = parseInt(localStorage.getItem('scoreO'));
+    let scoreX = parseInt(localStorage.getItem('scoreX'));
+    let scoreO = parseInt(localStorage.getItem('scoreO'));
   if (scoreX > scoreO) {
     localStorage.setItem('winnerTTT', localStorage.getItem('playerOne'));
   } else if (scoreO > scoreX) {
@@ -209,8 +196,19 @@ function checkWinner () {
   }
 }
 
+function loadCurrentGame (){
+  playerOne.innerHTML = localStorage.getItem('playerOne');
+  playerTwo.innerHTML = localStorage.getItem('playerTwo');
+  turns.innerHTML = parseInt(localStorage.getItem('turnedTimes'));
+  playerOneScore.innerHTML = parseInt(localStorage.getItem('scoreX'));
+  playerTwoScore.innerHTML = parseInt(localStorage.getItem('scoreO'));
+  console.log('OI')
+}
+
+
+
 const backToLogin = () => {
-  if(localStorage.getItem('isInGame') === 'true'){
+  if(localStorage.getItem('isInGame') === 'MemoryGame'){
     window.location = '../pages/overallScore.html';
   } else{
     window.location = '../pages/login.html';
@@ -218,21 +216,34 @@ const backToLogin = () => {
 }
 
 window.onload = () => {
-if (localStorage.getItem('playerOne') !== null && 
-localStorage.getItem('playerTwo') !== null && 
-localStorage.getItem('playerInTurn') !== null) {
-  playerOne.innerHTML = localStorage.getItem('playerOne');
-  playerTwo.innerHTML = localStorage.getItem('playerTwo');
-  turns.innerHTML = turnedTimes;
-
-  loadGame();
-  createGrid();
-} else {
-  let message = 'Os players não estão corretamente definidos.';
+if(localStorage.getItem('isInGame') == 'false') {
+  if (localStorage.getItem('playerOne') !== null && 
+  localStorage.getItem('playerTwo') !== null && 
+  localStorage.getItem('playerInTurn') !== null) {
+    playerOne.innerHTML = localStorage.getItem('playerOne');
+    playerTwo.innerHTML = localStorage.getItem('playerTwo');
+    localStorage.setItem('isInGame', 'Tic Tac Toe');
+    localStorage.setItem('turnedTimes', 10);
+    localStorage.setItem('scoreX', 0);
+    localStorage.setItem('scoreO', 0);
+    loadGame();
+    createGrid();
+  } else {
+    let message = 'Os players não estão corretamente definidos.';
+    alert(message);
+    setTimeout(() => {
+    window.location.href = './login.html';
+    }, 1000);
+  }
+} else if (localStorage.getItem('isInGame') != 'Tic Tac Toe'){
+  let message = 'Já há um jogo em andamento, acabe ' + localStorage.getItem('isInGame');
   alert(message);
   setTimeout(() => {
-  window.location.href = './login.html';
-  }, 1000);
+    window.location.href = './login.html';
+    }, 1000);
+} else {
+  loadCurrentGame();
+  createGrid();
 }
   
 if (localStorage.getItem('isTTTEnded') === 'true'){

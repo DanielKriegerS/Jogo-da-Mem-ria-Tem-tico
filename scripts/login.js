@@ -36,7 +36,7 @@ form.addEventListener('submit', (event) => {
   localStorage.setItem('playerOne', playerOne);
   const playerTwo = inputTwo.value;
   localStorage.setItem('playerTwo', playerTwo);
-  let isInGame = true;
+  let isInGame = false;
   localStorage.setItem('isInGame', isInGame);
   localStorage.setItem('playerInTurn', playerOne);
   toggleMenuAndLogin(event);
@@ -70,7 +70,7 @@ form.addEventListener('submit', (event) => {
   });
 
   window.onload = () => {
-   if (localStorage.getItem('isInGame') === 'true'){
+   if (localStorage.getItem('isInGame') !== null){
     window.location.href = 'overallScore.html'; 
    }
 }

@@ -110,13 +110,10 @@ const checkCards = () => {
             firstCard = '';
             secondCard = '';    
         }, 500);
-
     }
 }
 
 const revealCard = ({target}) => {
-   
-
     if (!target.parentNode.classList.toString().includes("grid")) {
         if (isPaused) {
             return;
@@ -136,11 +133,10 @@ const revealCard = ({target}) => {
         checkCards();
         checkEndGame();
     }
-}
+  }
 }
 
 const createCard = (character) => {
-
     const card = createElement('div', 'card');
     const front = createElement('div', 'face front');
     const back = createElement('div', 'face back');
@@ -289,10 +285,11 @@ const backToLogin = () => {
 }
 
 window.onload = () => {
+  if(localStorage.getItem('isInGame') == 'false') {
     if (localStorage.getItem('playerOne') !== null && 
     localStorage.getItem('playerTwo') !== null && 
     localStorage.getItem('playerInTurn') !== null) {
-        
+    localStorage.setItem('isInGame', 'Memory Game');    
     spanPlayer.innerHTML = localStorage.getItem('playerInTurn');
     localStorage.setItem('turnsA', 2);
     localStorage.setItem('turnsB', 2);
@@ -300,14 +297,23 @@ window.onload = () => {
     createPlayer(localStorage.getItem('playerTwo'), parseInt(localStorage.getItem('playerBPont')));
     startTimer();
     loadGame();
-      } else {
+  } else {
     let message = 'Os players não estão corretamente definidos.';
     alert(message);
     setTimeout(() => {
       window.location.href = './login.html';
     }, 1000);
   } 
-
+} else if (localStorage.getItem('isInGame') != 'Memory Game'){
+    let message = 'Já há um jogo em andamento, acabe ' + localStorage.getItem('isInGame');
+    alert(message);
+    setTimeout(() => {
+      window.location.href = './login.html';
+      }, 1000);
+  } else {
+    loadGame();
+  }
+    
   if (localStorage.getItem('isMGEnded') === 'true'){
     let message = 'Esse jogo já foi encerrado.';
     alert(message); 

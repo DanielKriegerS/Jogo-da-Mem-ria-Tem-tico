@@ -4,6 +4,9 @@ const winnerCS = document.querySelector('.winnerCS');
 const memoryGame = document.querySelector('.memoryGame');
 const ticTacToe = document.querySelector('.ticTacToe');
 const restart = document.querySelector('.restart__button');
+let turns;
+let scoreO;
+let scoreX;
 
 function showWinners () {
     if (localStorage.getItem('winnerMG')){
@@ -39,6 +42,12 @@ restart.addEventListener('click', function() {
     window.location.href = '../index.html';
   });
 
+function attTTT(){ 
+    turns = localStorage.getItem('turnedTimes');
+    scoreO = localStorage.getItem('ScoreO');
+    scoreX = localStorage.getItem('scoreX');
+}
+
 window.onload = () => {
     if (localStorage.getItem('playerOne') !== null && 
     localStorage.getItem('playerTwo') !== null && 
@@ -51,5 +60,8 @@ window.onload = () => {
     setTimeout(() => {
       window.location.href = './login.html';
     }, 1000);
-  } 
+  }
+  if (localStorage.getItem('isInGame') == 'Tic Tac Toe') {
+    attTTT();    
+  }
 }
